@@ -35,6 +35,7 @@ class StoreConfiguration(BaseModel):
 
     type: StoreType
     url: str
+    is_local: bool
 
     class Config:
         """Pydantic configuration class."""
