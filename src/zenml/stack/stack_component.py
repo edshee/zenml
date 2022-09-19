@@ -272,6 +272,15 @@ class StackComponent(BaseModel, ABC):
         """
         return None
 
+    @property
+    def is_local(self) -> bool:
+        """Status of the stack component.
+
+        Returns:
+            True if the stack component is local.
+        """
+        return bool(self.local_path)
+
     def prepare_pipeline_deployment(
         self,
         pipeline: "BasePipeline",
