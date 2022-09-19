@@ -31,6 +31,7 @@ def test_stack_component_default_method_implementations(stub_component):
     assert stub_component.log_file is None
     assert stub_component.runtime_options == {}
     assert stub_component.requirements == set()
+    assert stub_component.is_local is True
 
     assert stub_component.is_provisioned is True
     assert stub_component.is_running is True
