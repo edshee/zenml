@@ -267,8 +267,6 @@ class RestZenStore(BaseZenStore):
         """Register a new stack.
 
         Args:
-            user_name_or_id: The stack owner.
-            project_name_or_id: The project that the stack belongs to.
             stack: The stack to register.
 
         Returns:
@@ -306,6 +304,7 @@ class RestZenStore(BaseZenStore):
         self,
         project_name_or_id: Optional[Union[str, UUID]] = None,
         user_name_or_id: Optional[Union[str, UUID]] = None,
+        component_id: Optional[UUID] = None,
         name: Optional[str] = None,
         is_shared: Optional[bool] = None,
     ) -> List[StackModel]:
@@ -314,6 +313,8 @@ class RestZenStore(BaseZenStore):
         Args:
             project_name_or_id: Id or name of the Project containing the stack
             user_name_or_id: Optionally filter stacks by their owner
+            component_id: Optionally filter for stacks that contain the
+                          component
             name: Optionally filter stacks by their name
             is_shared: Optionally filter out stacks by whether they are shared
                 or not
@@ -415,9 +416,9 @@ class RestZenStore(BaseZenStore):
     def list_stack_components(
         self,
         project_name_or_id: Optional[Union[str, UUID]] = None,
+        user_name_or_id: Optional[Union[str, UUID]] = None,
         type: Optional[str] = None,
         flavor_name: Optional[str] = None,
-        user_name_or_id: Optional[Union[str, UUID]] = None,
         name: Optional[str] = None,
         is_shared: Optional[bool] = None,
     ) -> List[ComponentModel]:
@@ -530,7 +531,7 @@ class RestZenStore(BaseZenStore):
         """Get a stack component flavor by ID.
 
         Args:
-            component_id: The ID of the stack component flavor to get.
+            flavor_id: The ID of the stack component flavor to get.
 
         Returns:
             The stack component flavor.
@@ -547,8 +548,8 @@ class RestZenStore(BaseZenStore):
     def list_flavors(
         self,
         project_name_or_id: Optional[Union[str, UUID]] = None,
-        component_type: Optional[StackComponentType] = None,
         user_name_or_id: Optional[Union[str, UUID]] = None,
+        component_type: Optional[StackComponentType] = None,
         name: Optional[str] = None,
         is_shared: Optional[bool] = None,
     ) -> List[FlavorModel]:
@@ -557,9 +558,8 @@ class RestZenStore(BaseZenStore):
         Args:
             project_name_or_id: Optionally filter by the Project to which the
                 component flavors belong
-            component_type: Optionally filter by type of stack component
-            flavor_name: Optionally filter by flavor name
             user_name_or_id: Optionally filter by the owner
+            component_type: Optionally filter by type of stack component
             name: Optionally filter flavors by name
             is_shared: Optionally filter out flavors by whether they are
                 shared or not
@@ -582,7 +582,7 @@ class RestZenStore(BaseZenStore):
         """Update an existing stack component flavor.
 
         Args:
-            component: The stack component flavor to use for the update.
+            flavor: The stack component flavor to use for the update.
 
         Returns:
             The updated stack component flavor.
@@ -601,7 +601,7 @@ class RestZenStore(BaseZenStore):
         """Delete a stack component flavor.
 
         Args:
-            component_id: The ID of the stack component flavor to delete.
+            flavor_id: The ID of the stack component flavor to delete.
 
         Raises:
             KeyError: if the stack component flavor doesn't exist.
@@ -1302,6 +1302,7 @@ class RestZenStore(BaseZenStore):
         self,
         project_name_or_id: Optional[Union[str, UUID]] = None,
         stack_id: Optional[UUID] = None,
+        component_id: Optional[UUID] = None,
         run_name: Optional[str] = None,
         user_name_or_id: Optional[Union[str, UUID]] = None,
         pipeline_id: Optional[UUID] = None,
@@ -1312,6 +1313,8 @@ class RestZenStore(BaseZenStore):
         Args:
             project_name_or_id: If provided, only return runs for this project.
             stack_id: If provided, only return runs for this stack.
+            component_id: Optionally filter for runs that used the
+                          component
             run_name: Run name if provided
             user_name_or_id: If provided, only return runs for this user.
             pipeline_id: If provided, only return runs for this pipeline.
