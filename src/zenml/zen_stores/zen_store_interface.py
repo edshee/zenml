@@ -181,6 +181,14 @@ class ZenStoreInterface(ABC):
             The store configuration of the copied store.
         """
 
+    @abstractmethod
+    def get_configuration(self) -> StoreConfiguration:
+        """Get the store configuration.
+
+        Returns:
+            The store configuration.
+        """
+
     # ------------
     # TFX Metadata
     # ------------

@@ -231,6 +231,14 @@ class RestZenStore(BaseZenStore):
         # REST zen stores are not backed by local files
         return config
 
+    def get_configuration(self) -> StoreConfiguration:
+        """Get the store configuration.
+
+        Raises:
+            NotImplementedError: always
+        """
+        raise NotImplementedError
+
     # ------------
     # TFX Metadata
     # ------------

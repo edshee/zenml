@@ -295,6 +295,14 @@ class SqlZenStore(BaseZenStore):
 
         return config_copy
 
+    def get_configuration(self) -> StoreConfiguration:
+        """Get the store configuration.
+
+        Raises:
+            NotImplementedError: always
+        """
+        raise NotImplementedError
+
     # ------------
     # TFX Metadata
     # ------------
