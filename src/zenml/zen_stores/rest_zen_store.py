@@ -478,6 +478,7 @@ class RestZenStore(BaseZenStore):
 
         Raises:
             KeyError: if the stack component doesn't exist.
+            ValueError: if the stack component is part of one or more stacks.
         """
         self._delete_resource(
             resource_id=component_id,

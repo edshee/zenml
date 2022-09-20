@@ -17,7 +17,7 @@ from functools import wraps
 from typing import Any, Callable, List, TypeVar, cast
 
 from fastapi import HTTPException
-from pydantic import BaseModel, ValidationError
+from pydantic import BaseModel
 
 from zenml.config.global_config import GlobalConfiguration
 from zenml.enums import StoreType
@@ -153,7 +153,7 @@ def handle_exceptions(func: F) -> F:
         ) as error:
             logger.exception("Entity already exists")
             raise conflict(error) from error
-        except ValidationError as error:
+        except ValueError as error:
             logger.exception("Validation error")
             raise unprocessable(error) from error
 
