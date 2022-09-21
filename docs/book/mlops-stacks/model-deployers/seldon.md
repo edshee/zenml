@@ -142,7 +142,7 @@ zenml model-deployer register seldon_deployer --flavor=seldon \
   --kubernetes_context=zenml-eks \
   --kubernetes_namespace=zenml-workloads \
   --base_url=http://$INGRESS_HOST \
-  --secret=s3-store-credentials
+  --secret=s3-store
 
 # Now we can use the model deployer in our stack
 zenml stack update seldon_stack --model-deployer=seldon_deployer
